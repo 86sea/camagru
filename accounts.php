@@ -67,7 +67,7 @@
                 include_once "login.php";
                 break;
             case "admin":
-                include_once "login_admin.php";
+                //TODO include_once "login_admin.php";
                 break;
         }
         switch ($_POST['submit']) {
@@ -82,7 +82,7 @@
             };
             break;
         case "admin":
-            include_once "login_admin.php";
+           // TODO include_once "login_admin.php";
             break;
     }
     ?>
