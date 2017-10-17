@@ -1,19 +1,15 @@
-    <?php include "config.php" ?>
-<div class="dropdown">
-			<a class="dropbtn" href="index.php">HOME</a>
-		</div>
-		<div class="dropdown">
-			<form action="accounts.php" method="post">
-				<div class="dropdown-content">
-                    <button type="submit" name="submit" value="login">Login</button>
-                    <button type="submit" name="submit" value="create">Create An Account</button>
-                    <button type="submit" name="submit" value="admin">Admin</button>
-				</div>
-			</form>
-		</div>
-        <div class="logout">
-            <form action="logout.php" method="post">
-                <button type="submit" name="submit" value="logout">Logout</button>
-            </form>
-        </div>
+<?php include "config.php" ?>
+<ul class ="nav">
+    <li><a id="home" href="index.php">HOME</a></li>
+        <form action="accounts.php" method="post">
+            <li> <button type="submit" name="submit" value="login">Login</button></li>
+            <li><button type="submit" name="submit" value="create">Create An Account</button></li>
+            <li><button type="submit" name="submit" value="admin">Admin</button></li>
+        </form>
+        <form action="logout.php" method="post">
+            <li id="logout"><button type="submit" name="submit" value="logout">Logout</button></li>
+        </form>
+</ul>
+<br><br><br><br><br>
+<footer>Copyright 2017. Created By syoung.</footer>
 

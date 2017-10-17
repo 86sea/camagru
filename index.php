@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<link rel="stylesheet" type="text/css" href="style/style.css">
+		<link rel="stylesheet" type="text/css" href="style.css">
 		<title>CAMAGRU</title>
 	</head>
 	<body>
-    <?php require_once "config.php" ?>
-	<?php include_once "header.php"?>
-
-</body>
+	    <?php include_once "header.php"?>
+        <a href="http://localhost:8080/snap.php">Take a picture!</a><br>
+    </body>
 </html>

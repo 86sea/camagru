@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Accounts</title>
-    <?php
-        include_once "header.php";
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <title>Accounts</title>
+<?php
     function create($db)
         {
             $email = $_POST['email'];
@@ -58,19 +58,24 @@
                 }
             }
     }
-        switch ($_POST['submit']) {
 
-            case "create":
-                include_once "create.php";
-                break;
-            case "login":
-                include_once "login.php";
-                break;
-            case "admin":
-                //TODO include_once "login_admin.php";
-                break;
-        }
-        switch ($_POST['submit']) {
+    ?>
+<body>
+<?php
+    include "header.php";
+    switch ($_POST['submit']) {
+
+        case "create":
+            include_once "create.php";
+            break;
+        case "login":
+            include_once "login.php";
+            break;
+        case "admin":
+            //TODO include_once "login_admin.php";
+            break;
+    }
+    switch ($_POST['submit']) {
         case "_create":
             if (create($db) != 1){
                 include "create.php";
@@ -82,12 +87,10 @@
             };
             break;
         case "admin":
-           // TODO include_once "login_admin.php";
+            // TODO include_once "login_admin.php";
             break;
     }
-    ?>
-</head>
-<body>
 
+?>
 </body>
 </html>
