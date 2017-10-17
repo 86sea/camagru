@@ -1,4 +1,5 @@
-	<div class="dropdown">
+    <?php include "config.php" ?>
+<div class="dropdown">
 			<a class="dropbtn" href="index.php">HOME</a>
 		</div>
 		<div class="dropdown">
@@ -8,8 +9,11 @@
                     <button type="submit" name="submit" value="create">Create An Account</button>
                     <button type="submit" name="submit" value="admin">Admin</button>
 				</div>
-				<div class="logout">
-					<a href="logout.php">Logout.</a>
 			</form>
 		</div>
+        <div class="logout">
+            <form action="logout.php" method="post">
+                <button type="submit" name="submit" value="logout">Logout</button>
+            </form>
+        </div>
 
