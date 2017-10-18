@@ -19,8 +19,10 @@
             $query = $db->prepare("SELECT * FROM users WHERE username=?");
             $query->execute(array($login));
             $row_count = $query->rowCount();
-            if ($row_count != 0)
+            if ($row_count != 0) {
+                echo "ACCOUNT ALREADY EXISTS";
                 return (false);
+            }
             else {
                 $query = $db->prepare("INSERT INTO users(username, passwd, email, token, valid)
 			VALUES(?, ?, ?, ?, ?)");
@@ -42,16 +44,21 @@
             $query->execute(array($login));
             $row_count = $query->rowCount();
             if ($row_count != 1)
+            {
+                echo "ACCOUNT DOES NOT EXIST";
                 return (false);
+            }
             else {
                 $row = $query->fetchAll(PDO::FETCH_ASSOC);
                 if ($row[0]['passwd'] != $hash) {
                     echo "WRONG PASSWORD";
                     return false;
-                if ($row[0]['valid'] != 1){
-                    echo "ACCOUNT HAS NOT BEEN VALIDATION, CHECK YOUR EMAIL";
                 }
-                } else {
+                if ($row[0]['valid'] != 1){
+                    echo "ACCOUNT HAS NOT BEEN VALIDATED, CHECK YOUR EMAIL";
+                    return false;
+                }
+                else {
                     session_start();
                     $_SESSION['logged_on_usr'] = $login;
                     return true;

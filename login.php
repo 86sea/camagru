@@ -6,5 +6,7 @@
         <input type="password" name="passwd" value="" title="pass">
         <button type="submit" name="submit" value="_login">Create</button>
     </form>
+    <br>
+    <a href="http://localhost:8080/camagru/reset.php">Forgot Password?</a>
 </div>
 
