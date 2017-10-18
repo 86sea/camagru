@@ -5,9 +5,14 @@
     <title>Accounts</title>
 <?php
     include "header.php";
+    session_start();
     if ($_GET['reset'] != ""){
+
+
         $login = $_GET['reset'];
         $token = $_GET['token'];
+        $_SESSION['reset_login'] = $login;
+        $_SESSION['reset_token'] = $_token
         $query = $db->prepare("SELECT * FROM users WHERE username=? AND reset=?");
         $query->execute(array($login, $token));
         $row_count = $query->rowCount();
