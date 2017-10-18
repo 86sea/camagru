@@ -1,3 +1,8 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <title>Accounts</title>
 <?php
     include "header.php";
     if ($_GET['reset'] != ""){
@@ -20,7 +25,8 @@
         }
     }
 ?>
-
+</head>
+<body>
 <div class="login">
     <form action="reset2.php" method="post">
         <h1>Password:</h1>
@@ -28,3 +34,5 @@
         <button type="submit" name="submit" value="reset">Reset password and go to login page.</button>
     </form>
 </div>
+</body>
+</html>
