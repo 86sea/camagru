@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <link rel="stylesheet" type="text/css" href="style/style.css">
 </head>
 <body onload="init();">
+<?php include "header.php"; ?>
 <h1>Take a snapshot of the current video stream</h1>
 Click on the Start WebCam button.
 <p>
@@ -16,7 +18,7 @@ Click on the Start WebCam button.
     Screenshots : <p>
     <canvas  id="myCanvas" width="400" height="350"></canvas>
 </body>
-<?php include "header.php"?>
+
 <script>
     //--------------------
     // GET USER MEDIA CODE

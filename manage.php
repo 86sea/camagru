@@ -3,7 +3,7 @@
 		
 	<head>
 
-		<link rel="stylesheet" type="text/css" href="style.css">
+		<link rel="stylesheet" type="text/css" href="style/style.css">
 		<title>SURFS-UP</title>
 			<?php
 			session_start();

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="style/style.css">
     <title>Accounts</title>
 <?php
     function create($db)
@@ -89,14 +89,18 @@
             }
             break;
         case "_login":
-            if (login($db) != 1){
+            if (login($db) != "true"){
                 include "login.php";
-            };
+            }
+            else
+                header('Location: index.php', true, 301);
             break;
         case "admin":
             // TODO include_once "login_admin.php";
             break;
     }
+    if ($_GET['action'] == "login")
+        include_once "login.php";
 
 ?>
 </body>
