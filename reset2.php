@@ -22,16 +22,14 @@
         }
         else {
             $passwd = $_POST['passwd'];
-            $hash = hash(whirlpool, $passwd);
+            $hash = password_hash($passwd, PASSWORD_BCRYPT);
             $query = $db->prepare("UPDATE users SET passwd=? WHERE username=?");
             $query->execute(array($hash, $login));
             session_unset();
             header('Location: accounts.php?action=login', true, 301);
         }
     }
-   // print_r($_SESSION);
-    //print_r($_GET);
-    print_r($_POST);
+
 
 ?>
 </head>

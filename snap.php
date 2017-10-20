@@ -76,6 +76,8 @@ Click on the Start WebCam button.
     function snapshot() {
         // Draws current image from the video element into the canvas
         ctx.drawImage(video, 0,0, canvas.width, canvas.height);
+        var dataURL = ctx.toDataURL("image/png");
+        document.write(dataURL);
     }
 
 </script>

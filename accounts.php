@@ -7,13 +7,14 @@
     function create($db)
         {
             $email = $_POST['email'];
-            if (strlen($_POST['login']) < 1 || strlen($_POST['passwd']) < 8 || filter_var($email, FILTER_VALIDATE_EMAIL) == FALSE){
+            if (strlen($_POST['login']) < 1 || strlen($_POST['passwd']) < 0 || filter_var($email, FILTER_VALIDATE_EMAIL) == FALSE){
                 echo "USER NAME NEEDS TO BE BIGGER THAN 1 CHARACTER AND PASSWORD NEEDS TO CONTAIN AT LEAST 8 CHARACTERS AND EMAIL NEEDS TO BE VALID";
                 return (false);
             }
             $login = $_POST['login'];
             $passwd = $_POST['passwd'];
-            $hash = hash(whirlpool, $passwd);
+            $hash = password_hash($passwd, PASSWORD_BCRYPT);
+            echo "test".$hash;
             $token = openssl_random_pseudo_bytes(16);
             $token = bin2hex($token);
             $query = $db->prepare("SELECT * FROM users WHERE username=?");
@@ -24,22 +25,20 @@
                 return (false);
             }
             else {
-                $query = $db->prepare("INSERT INTO users(username, passwd, email, token, valid)
-			VALUES(?, ?, ?, ?, ?)");
+                $query = $db->prepare("INSERT INTO users(username, passwd, email, token, valid)	VALUES(?, ?, ?, ?, ?)");
                 $query->execute(array($login, $hash, $email, $token, 0));
                 $validation = "http://localhost:8080/camagru/validate.php?user=$login&token=$token";
-                echo mail("$email", "CAMAGRU ACCOUNT VALIDATION", "$validation");
+                mail("$email", "CAMAGRU ACCOUNT VALIDATION", "$validation");
                 return (true);
             }
         }
     function login($db){
-            if (strlen($_POST['login']) < 1 || strlen($_POST['passwd']) < 8){
+            if (strlen($_POST['login']) < 1 || strlen($_POST['passwd']) < 0){
                 echo "USER NAME NEEDS TO BE BIGGER THAN 1 CHARACTER PASSWORD NEEDS TO CONTAIN AT LEAST 8 CHARACTERS";
                 return (false);
             }
             $login = $_POST['login'];
             $passwd = $_POST['passwd'];
-            $hash = hash(whirlpool, $passwd);
             $query = $db->prepare("SELECT * FROM users WHERE username=?");
             $query->execute(array($login));
             $row_count = $query->rowCount();
@@ -50,7 +49,7 @@
             }
             else {
                 $row = $query->fetchAll(PDO::FETCH_ASSOC);
-                if ($row[0]['passwd'] != $hash) {
+                if (password_verify($passwd , $row[0]['passwd']) != TRUE) {
                     echo "WRONG PASSWORD";
                     return false;
                 }
@@ -84,7 +83,7 @@
     }
     switch ($_POST['submit']) {
         case "_create":
-            if (create($db) != 1){
+            if (create($db) != "true"){
                 include "create.php";
             }
             break;
