@@ -26,8 +26,7 @@
             };
     }
     ?>
-</head>
-<body>
+</head><body>
 <div class="login">
     <form action="reset.php" method="post">
         <h1>Username:</h1>

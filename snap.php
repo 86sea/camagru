@@ -15,7 +15,7 @@ Click on the Start WebCam button.
 <video onclick="snapshot(this);" width=400 height=400 id="video" controls autoplay></video>
 <p>
 
-    Screenshots : <p>
+    Screenshots : </p>
     <canvas  id="myCanvas" width="400" height="350"></canvas>
 </body>
 
@@ -47,7 +47,6 @@ Click on the Start WebCam button.
                     video.src = window.URL.createObjectURL(localMediaStream);
                     webcamStream = localMediaStream;
                 },
-
                 // errorCallback
                 function(err) {
                     console.log("The following error occurred: " + err);
@@ -76,8 +75,14 @@ Click on the Start WebCam button.
     function snapshot() {
         // Draws current image from the video element into the canvas
         ctx.drawImage(video, 0,0, canvas.width, canvas.height);
-        var dataURL = ctx.toDataURL("image/png");
-        document.write(dataURL);
+        var canvasData = canvas.toDataURL("image/png");
+        $.ajax({
+            url:'testsave.php',
+            type:'POST',
+            data:{
+                data:canvasData
+            }
+        });
     }
 
 </script>

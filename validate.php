@@ -12,4 +12,3 @@
         $query->execute(array(1, $login));
         echo "VALIDATION SUCCESSFULL";
     }
-?>
