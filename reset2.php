@@ -29,8 +29,6 @@
             header('Location: accounts.php?action=login', true, 301);
         }
     }
-
-
 ?>
 </head>
 <body>

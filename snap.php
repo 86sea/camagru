@@ -58,7 +58,7 @@ Click on the Start WebCam button.
     }
 
     function stopWebcam() {
-        webcamStream.stop();
+        webcamStream.getTracks()[0].stop();
     }
     //---------------------
     // TAKE A SNAPSHOT CODE
@@ -71,18 +71,18 @@ Click on the Start WebCam button.
         canvas = document.getElementById("myCanvas");
         ctx = canvas.getContext('2d');
     }
-
+    //https://gist.github.com/peterschmidler/2410299
+    //https://permadi.com/2010/10/html5-saving-canvas-image-data-using-php-and-ajax/
     function snapshot() {
         // Draws current image from the video element into the canvas
-        ctx.drawImage(video, 0,0, canvas.width, canvas.height);
+        // ctx.drawImage(video, 0,0, canvas.width, canvas.height);
         var canvasData = canvas.toDataURL("image/png");
-        $.ajax({
-            url:'testsave.php',
-            type:'POST',
-            data:{
-                data:canvasData
-            }
-        });
+        var postData = "canvasData="+canvasData;
+        var ajax = new XMLHttpRequest();
+        ajax.open("POST",'testSave.php',true);
+        ajax.setRequestHeader('Content-Type', 'canvas/upload');
+        ajax.setRequestHeader('Content-TypeLength', postData.length);
+        ajax.send(canvasData );
     }
 
 </script>
