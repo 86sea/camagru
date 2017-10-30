@@ -4,8 +4,12 @@
     width: 50px;
 }
 footer{
-    position:absolute;
-    bottom:20px;
+    position: relative;
+    margin-top: -18px;
+    /* negative value of footer height */
+    height: 18px;
+    clear: both;
+    background-color: red;
 }
 
 .nav{
@@ -57,4 +61,9 @@ li button:hover {
     width: 20%;
     height: 1000%;
     border: 6px solid;
+}
+
+#myCanvas{
+    display: block;
+    height: 640px;
 }

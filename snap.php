@@ -30,7 +30,7 @@ Click on the Start WebCam button.
 
     Screenshots : </p>
     <canvas  id="myCanvas" width="640" height="484"></canvas>
-
+<?php include "footer.php"; ?>
 </body>
 
 <script>

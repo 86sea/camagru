@@ -11,5 +11,5 @@
         </form>
 </ul>
 <br><br><br><br><br>
-<footer>Copyright 2017. Created By syoung.</footer>
+
 
