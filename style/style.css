@@ -51,3 +51,10 @@ li button:hover {
     text-decoration: none;
     background-color: #333333;
 }
+
+.filter{
+    float: right;
+    width: 20%;
+    height: 1000%;
+    border: 6px solid;
+}

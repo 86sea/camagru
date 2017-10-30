@@ -2,24 +2,44 @@
 <html>
 <head>
     <link rel="stylesheet" type="text/css" href="style/style.css">
+
 </head>
 <body onload="init();">
 <?php include "header.php"; ?>
+<div class="filter">
+    <input onclick="chkd()" id="filter" name="filter" type="radio" value="1">Plastic<br>
+    <input onclick="chkd()" id="filter" name="filter" type="radio" value="2">Blood<br>
+    <input onclick="chkd()" id="filter" name="filter" type="radio" value="3">Snake<br>
+    <input onclick="chkd()" id="filter" name="filter" type="radio" value="4">Money<br>
+    <input onclick="chkd()" id="filter" name="filter" type="radio" value="5">Cat<br>
+    <input onclick="chkd()" id="filter" name="filter" type="radio" value="6">AK47<br>
+    <input onclick="chkd()" id="filter" name="filter" type="radio" value="7">Sniper<br>
+    <input onclick="chkd()" id="filter" name="filter" type="radio" value="8">Bear<br>
+    <input onclick="chkd()" id="filter" name="filter" type="radio" value="9">Hand<br>
+    <input onclick="chkd()" id="filter" name="filter" type="radio" value="10">Scratch<br>
+</div>
 <h1>Take a snapshot of the current video stream</h1>
 Click on the Start WebCam button.
 <p>
     <button onclick="startWebcam();">Start WebCam</button>
-    <button onclick="stopWebcam();">Stop WebCam</button>
-    <button onclick="snapshot();">Take Snapshot</button>
+    <button id="stop" onclick="stopWebcam();">Stop WebCam</button>
+    <button id="snap" onclick="snapshot();">Take Snapshot</button>
 </p>
-<video onclick="snapshot(this);" width=400 height=400 id="video" controls autoplay></video>
+<video onclick="snapshot(this);" width=640 height=484 id="video" controls autoplay></video>
 <p>
 
     Screenshots : </p>
-    <canvas  id="myCanvas" width="400" height="350"></canvas>
+    <canvas  id="myCanvas" width="640" height="484"></canvas>
+
 </body>
 
 <script>
+    function chkd() {
+        var vid = document.getElementById("video");
+        if (vid.currentTime > 0 && document.getElementById("snap").disabled == true) {
+            document.getElementById("snap").disabled = false;
+        }
+    }
     //--------------------
     // GET USER MEDIA CODE
     //--------------------
@@ -31,10 +51,19 @@ Click on the Start WebCam button.
     var video;
     var webcamStream;
 
+    document.getElementById("snap").disabled = true;
+    document.getElementById("stop").disabled = true;
     function startWebcam() {
+        var radios = document.getElementsByName("filter");
+        for (i = 0; i < radios.length; i++ ) {
+            if( radios[i].checked ) {
+                document.getElementById("snap").disabled = false;
+            }
+        }
+
+        document.getElementById("stop").disabled = false;
         if (navigator.getUserMedia) {
             navigator.getUserMedia (
-
                 // constraints
                 {
                     video: true,
@@ -58,7 +87,11 @@ Click on the Start WebCam button.
     }
 
     function stopWebcam() {
-        webcamStream.getTracks()[0].stop();
+        var vid = document.getElementById("video");
+        if (vid.currentTime > 0) {
+            document.getElementById("snap").disabled = true;
+            webcamStream.getTracks()[0].stop();
+        }
     }
     //---------------------
     // TAKE A SNAPSHOT CODE
@@ -74,16 +107,15 @@ Click on the Start WebCam button.
     //https://gist.github.com/peterschmidler/2410299
     //https://permadi.com/2010/10/html5-saving-canvas-image-data-using-php-and-ajax/
     function snapshot() {
-        // Draws current image from the video element into the canvas
-         ctx.drawImage(video, 0,0, canvas.width, canvas.height);
-        var canvasData = canvas.toDataURL("image/png");
-        alert(canvasData);
-        var postData = "canvasData="+canvasData;
-        var ajax = new XMLHttpRequest();
-        ajax.open("POST",'testsave.php',true);
-        ajax.setRequestHeader('Content-Type', 'canvas/upload');
-       // ajax.setRequestHeader('Content-Type-Length', postData.length);
-        ajax.send(canvasData );
+        var vid = document.getElementById("video");
+        if (vid.currentTime > 0) {
+            ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+            var canvasData = canvas.toDataURL("image/png");
+            var ajax = new XMLHttpRequest();
+            ajax.open("POST", 'testsave.php', true);
+            ajax.setRequestHeader('Content-Type', 'canvas/upload');
+            ajax.send(canvasData);
+        }
     }
 
 </script>

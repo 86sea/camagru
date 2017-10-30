@@ -1,21 +1,21 @@
 <?php
 if (isset($GLOBALS["HTTP_RAW_POST_DATA"]))
 {
-    // Get the data
     $imageData=$GLOBALS['HTTP_RAW_POST_DATA'];
-
-    // Remove the headers (data:,) part.
-    // A real application should use them according to needs such as to check image type
     $filteredData=substr($imageData, strpos($imageData, ",")+1);
-
-    // Need to decode before saving since the data we received is already base64 encoded
     $unencodedData=base64_decode($filteredData);
-
-    //echo "unencodedData".$unencodedData;
-
-    // Save file. This example uses a hard coded filename for testing,
-    // but a real application can specify filename in POST variable
-    $fp = fopen( 'test.png', 'wb' );
+    $fp = fopen( 'temp.png', 'wb' );
     fwrite( $fp, $unencodedData);
     fclose( $fp );
 }
+//https://stackoverflow.com/questions/3876299/merging-two-images-with-php
+    $dest = imagecreatefrompng("temp.png");
+    $src = imagecreatefrompng("stock/1.png");
+    imagealphablending($dest, true);
+    imagesavealpha($dest, true);
+    imagealphablending($src, true);
+    imagesavealpha($src, true);
+    imagecopy($dest, $src, 0, 0, 0, 0, 640, 484); //have to play with these numbers for it to work for you, etc.
+    imagepng($dest, "temp.png");
+    imagedestroy($dest);
+    imagedestroy($src);
