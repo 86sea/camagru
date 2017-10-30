@@ -75,13 +75,14 @@ Click on the Start WebCam button.
     //https://permadi.com/2010/10/html5-saving-canvas-image-data-using-php-and-ajax/
     function snapshot() {
         // Draws current image from the video element into the canvas
-        // ctx.drawImage(video, 0,0, canvas.width, canvas.height);
+         ctx.drawImage(video, 0,0, canvas.width, canvas.height);
         var canvasData = canvas.toDataURL("image/png");
+        alert(canvasData);
         var postData = "canvasData="+canvasData;
         var ajax = new XMLHttpRequest();
-        ajax.open("POST",'testSave.php',true);
+        ajax.open("POST",'testsave.php',true);
         ajax.setRequestHeader('Content-Type', 'canvas/upload');
-        ajax.setRequestHeader('Content-TypeLength', postData.length);
+       // ajax.setRequestHeader('Content-Type-Length', postData.length);
         ajax.send(canvasData );
     }
 
