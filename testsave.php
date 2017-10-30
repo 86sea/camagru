@@ -19,3 +19,4 @@ if (isset($GLOBALS["HTTP_RAW_POST_DATA"]))
     imagepng($dest, "temp.png");
     imagedestroy($dest);
     imagedestroy($src);
+    //TODO https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/send

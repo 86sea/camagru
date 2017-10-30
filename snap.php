@@ -78,11 +78,11 @@ Click on the Start WebCam button.
                 },
                 // errorCallback
                 function(err) {
-                    console.log("The following error occurred: " + err);
+                    //console.log("The following error occurred: " + err);
                 }
             );
         } else {
-            console.log("getUserMedia not supported");
+           // console.log("getUserMedia not supported");
         }
     }
 
