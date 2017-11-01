@@ -6,7 +6,7 @@
 </head>
 <body onload="init();">
 <?php include "header.php"; ?>
-<div class="main">
+<div class="clear"></div>
     <div class="filter">
         <p>Select an image to superimpose:</p>
         <input onclick="chkd(1)" id="filter" name="filter" type="radio" value="1">Plastic<br>
@@ -27,14 +27,15 @@
         <button id="snap" onclick="snapshot();">Take Snapshot</button>
     </p>
 
-    <div id="previewdiv"></div>
+    <div id="previewdiv">
     <video onclick="snapshot(this);" width=640 height=484 id="video" controls autoplay></video>
-
+        <img id="preview">
+    </div>
     <p>
 
         Screenshots : </p>
         <canvas  id="myCanvas" width="640" height="484"></canvas>
-</div>
+
 <div class="side">
 
 </div>
@@ -61,22 +62,23 @@
         if (vid.currentTime > 0 && document.getElementById("snap").disabled == true) {
             document.getElementById("snap").disabled = false;
         }
-        var img = document.createElement("img");
-        var elem = document.getElementById('preview');
-        if (elem != null) {
-            elem.parentNode.removeChild(elem);
-        }
+       // var img = document.createElement("img");
+        //var elem = document.getElementById('preview');
+        //if (elem != null) {
+         //   elem.parentNode.removeChild(elem);
+        //}
         var src = "stock/";
         src =  src.concat(choice.toString());
         src = src.concat(".png");
+        var img = document.getElementById("preview")
         img.src = src;
         img.width = 640;
         img.height = 384;
         img.alt = "filter";
-        img.id = "preview";
+        //img.id = "preview";
 
         // This next line will just add it to the <body> tag
-        document.getElementById("previewdiv").appendChild(img);
+       // document.getElementById("previewdiv").appendChild(img);
     }
     function startWebcam() {
         var radios = document.getElementsByName("filter");

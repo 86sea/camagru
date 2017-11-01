@@ -12,6 +12,9 @@ footer{
     background-color: red;
 }
 
+.clear{
+    clear: both;
+}
 .nav{
     position: absolute;
     top: 0px;
@@ -63,17 +66,18 @@ li button:hover {
     right: 9001px;
 }
 
-.previewdiv{
+#previewdiv{
     poistion: relative;
-    bottom: 294px;
-    right: 2px;
-    z-index: 2;
+
 }
 
 video{
     poistion: relative;
-    bottom: 294px;
-    right: 2px;
+}
 
+#preview{
+    position: absolute;
+    top: 466px;
+    left: 9px;
 }
 
