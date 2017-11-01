@@ -9,15 +9,15 @@
 <div class="clear"></div>
     <div class="filter">
         <p>Select an image to superimpose:</p>
-        <input onclick="chkd(1)" id="filter" name="filter" type="radio" value="1">Plastic<br>
-        <input onclick="chkd(2)" id="filter" name="filter" type="radio" value="2">Blood<br>
-        <input onclick="chkd(3)" id="filter" name="filter" type="radio" value="3">Snake<br>
-        <input onclick="chkd(4)" id="filter" name="filter" type="radio" value="4">Money<br>
-        <input onclick="chkd(5)" id="filter" name="filter" type="radio" value="5">Cat<br>
-        <input onclick="chkd(6)" id="filter" name="filter" type="radio" value="6">AK47<br>
-        <input onclick="chkd(7)" id="filter" name="filter" type="radio" value="7">Sniper<br>
-        <input onclick="chkd(8)" id="filter" name="filter" type="radio" value="8">Bear<br>
-        <input onclick="chkd(9)" id="filter" name="filter" type="radio" value="9">Hand<br>
+        <input onclick="chkd(1)" id="filter" name="filter" type="radio" value="1">Mr. Orange<br>
+        <input onclick="chkd(2)" id="filter" name="filter" type="radio" value="2">Tree<br>
+        <input onclick="chkd(3)" id="filter" name="filter" type="radio" value="3">Statue<br>
+        <input onclick="chkd(4)" id="filter" name="filter" type="radio" value="4">Vapor 1<br>
+        <input onclick="chkd(5)" id="filter" name="filter" type="radio" value="5">Vapor 2<br>
+        <input onclick="chkd(6)" id="filter" name="filter" type="radio" value="6">Vapor 3<br>
+        <input onclick="chkd(7)" id="filter" name="filter" type="radio" value="7">Meme Man<br>
+        <input onclick="chkd(8)" id="filter" name="filter" type="radio" value="8">Evil Incarnate<br>
+        <input onclick="chkd(9)" id="filter" name="filter" type="radio" value="9">Computer<br>
     </div>
     <h1>Take a snap</h1>
     Click on the Start WebCam button.
@@ -72,8 +72,8 @@
         src = src.concat(".png");
         var img = document.getElementById("preview")
         img.src = src;
-        img.width = 640;
-        img.height = 384;
+       // img.width = 640;
+       // img.height = 384;
         img.alt = "filter";
         //img.id = "preview";
 
