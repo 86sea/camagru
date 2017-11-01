@@ -2,11 +2,14 @@
 if (isset($GLOBALS["HTTP_RAW_POST_DATA"])) {
     $imageData = $GLOBALS['HTTP_RAW_POST_DATA'];
     $filter = substr($imageData, -1);
-    $filterData = substr($imageData, "", -1);
+    $filterData = substr($imageData, 0, -1);
     $filteredData = substr($imageData, strpos($imageData, ",") + 1);
     $unencodedData = base64_decode($filteredData);
     $fp = fopen('temp.png', 'wb');
     fwrite($fp, $unencodedData);
+    fclose($fp);
+    $fp = fopen('test.txt', 'wb');
+    fwrite($fp, $filter);
     fclose($fp);
 }
 //https://stackoverflow.com/questions/3876299/merging-two-images-with-php

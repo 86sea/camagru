@@ -56,14 +56,24 @@ li button:hover {
     background-color: #333333;
 }
 
-.filter{
-    float: right;
-    width: 20%;
-    height: 1000%;
-    border: 6px solid;
-}
-
 #myCanvas{
     display: block;
-    height: 690px;
+    position: absolute;
+    top: 9001px;
+    right: 9001px;
 }
+
+.previewdiv{
+    poistion: relative;
+    bottom: 294px;
+    right: 2px;
+    z-index: 2;
+}
+
+video{
+    poistion: relative;
+    bottom: 294px;
+    right: 2px;
+
+}
+

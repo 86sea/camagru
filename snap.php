@@ -6,30 +6,38 @@
 </head>
 <body onload="init();">
 <?php include "header.php"; ?>
-<div class="filter">
-    <input onclick="chkd()" id="filter" name="filter" type="radio" value="1">Plastic<br>
-    <input onclick="chkd()" id="filter" name="filter" type="radio" value="2">Blood<br>
-    <input onclick="chkd()" id="filter" name="filter" type="radio" value="3">Snake<br>
-    <input onclick="chkd()" id="filter" name="filter" type="radio" value="4">Money<br>
-    <input onclick="chkd()" id="filter" name="filter" type="radio" value="5">Cat<br>
-    <input onclick="chkd()" id="filter" name="filter" type="radio" value="6">AK47<br>
-    <input onclick="chkd()" id="filter" name="filter" type="radio" value="7">Sniper<br>
-    <input onclick="chkd()" id="filter" name="filter" type="radio" value="8">Bear<br>
-    <input onclick="chkd()" id="filter" name="filter" type="radio" value="9">Hand<br>
-    <input onclick="chkd()" id="filter" name="filter" type="radio" value="10">Scratch<br>
-</div>
-<h1>Take a snapshot of the current video stream</h1>
-Click on the Start WebCam button.
-<p>
-    <button onclick="startWebcam();">Start WebCam</button>
-    <button id="stop" onclick="stopWebcam();">Stop WebCam</button>
-    <button id="snap" onclick="snapshot();">Take Snapshot</button>
-</p>
-<video onclick="snapshot(this);" width=640 height=484 id="video" controls autoplay></video>
-<p>
+<div class="main">
+    <div class="filter">
+        <p>Select an image to superimpose:</p>
+        <input onclick="chkd(1)" id="filter" name="filter" type="radio" value="1">Plastic<br>
+        <input onclick="chkd(2)" id="filter" name="filter" type="radio" value="2">Blood<br>
+        <input onclick="chkd(3)" id="filter" name="filter" type="radio" value="3">Snake<br>
+        <input onclick="chkd(4)" id="filter" name="filter" type="radio" value="4">Money<br>
+        <input onclick="chkd(5)" id="filter" name="filter" type="radio" value="5">Cat<br>
+        <input onclick="chkd(6)" id="filter" name="filter" type="radio" value="6">AK47<br>
+        <input onclick="chkd(7)" id="filter" name="filter" type="radio" value="7">Sniper<br>
+        <input onclick="chkd(8)" id="filter" name="filter" type="radio" value="8">Bear<br>
+        <input onclick="chkd(9)" id="filter" name="filter" type="radio" value="9">Hand<br>
+    </div>
+    <h1>Take a snap</h1>
+    Click on the Start WebCam button.
+    <p>
+        <button onclick="startWebcam();">Start WebCam</button>
+        <button id="stop" onclick="stopWebcam();">Stop WebCam</button>
+        <button id="snap" onclick="snapshot();">Take Snapshot</button>
+    </p>
 
-    Screenshots : </p>
-    <canvas  id="myCanvas" width="640" height="484"></canvas>
+    <div id="previewdiv"></div>
+    <video onclick="snapshot(this);" width=640 height=484 id="video" controls autoplay></video>
+
+    <p>
+
+        Screenshots : </p>
+        <canvas  id="myCanvas" width="640" height="484"></canvas>
+</div>
+<div class="side">
+
+</div>
 <?php include "footer.php"; ?>
 </body>
 
@@ -48,11 +56,27 @@ Click on the Start WebCam button.
 
     document.getElementById("snap").disabled = true;
     document.getElementById("stop").disabled = true;
-    function chkd() {
+    function chkd(choice) {
         var vid = document.getElementById("video");
         if (vid.currentTime > 0 && document.getElementById("snap").disabled == true) {
             document.getElementById("snap").disabled = false;
         }
+        var img = document.createElement("img");
+        var elem = document.getElementById('preview');
+        if (elem != null) {
+            elem.parentNode.removeChild(elem);
+        }
+        var src = "stock/";
+        src =  src.concat(choice.toString());
+        src = src.concat(".png");
+        img.src = src;
+        img.width = 640;
+        img.height = 384;
+        img.alt = "filter";
+        img.id = "preview";
+
+        // This next line will just add it to the <body> tag
+        document.getElementById("previewdiv").appendChild(img);
     }
     function startWebcam() {
         var radios = document.getElementsByName("filter");
@@ -117,8 +141,7 @@ Click on the Start WebCam button.
                 if( radios[i].checked ) {
                     i++;
                     choice = i.toString();
-                    console.log(choice);
-                    canvasData.concat(choice);
+                    canvasData = canvasData.concat(choice);
                     break ;
                 }
             }
