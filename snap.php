@@ -34,12 +34,7 @@ Click on the Start WebCam button.
 </body>
 
 <script>
-    function chkd() {
-        var vid = document.getElementById("video");
-        if (vid.currentTime > 0 && document.getElementById("snap").disabled == true) {
-            document.getElementById("snap").disabled = false;
-        }
-    }
+
     //--------------------
     // GET USER MEDIA CODE
     //--------------------
@@ -53,14 +48,19 @@ Click on the Start WebCam button.
 
     document.getElementById("snap").disabled = true;
     document.getElementById("stop").disabled = true;
+    function chkd() {
+        var vid = document.getElementById("video");
+        if (vid.currentTime > 0 && document.getElementById("snap").disabled == true) {
+            document.getElementById("snap").disabled = false;
+        }
+    }
     function startWebcam() {
         var radios = document.getElementsByName("filter");
-        for (i = 0; i < radios.length; i++ ) {
+        for (var i = 0; i < radios.length; i++ ) {
             if( radios[i].checked ) {
                 document.getElementById("snap").disabled = false;
             }
         }
-
         document.getElementById("stop").disabled = false;
         if (navigator.getUserMedia) {
             navigator.getUserMedia (
@@ -69,7 +69,6 @@ Click on the Start WebCam button.
                     video: true,
                     audio: false
                 },
-
                 // successCallback
                 function(localMediaStream) {
                     video = document.querySelector('video');
@@ -85,7 +84,6 @@ Click on the Start WebCam button.
            // console.log("getUserMedia not supported");
         }
     }
-
     function stopWebcam() {
         var vid = document.getElementById("video");
         if (vid.currentTime > 0) {
@@ -112,6 +110,18 @@ Click on the Start WebCam button.
             ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
             var canvasData = canvas.toDataURL("image/png");
             var ajax = new XMLHttpRequest();
+            var choice;
+            var radios = document.getElementsByName("filter");
+
+            for (var i = 0; i < radios.length; i++ ) {
+                if( radios[i].checked ) {
+                    i++;
+                    choice = i.toString();
+                    console.log(choice);
+                    canvasData.concat(choice);
+                    break ;
+                }
+            }
             ajax.open("POST", 'testsave.php', true);
             ajax.setRequestHeader('Content-Type', 'canvas/upload');
             ajax.send(canvasData);

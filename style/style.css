@@ -4,7 +4,7 @@
     width: 50px;
 }
 footer{
-    position: relative;
+    position: absolute;
     margin-top: -18px;
     /* negative value of footer height */
     height: 18px;
@@ -65,5 +65,5 @@ li button:hover {
 
 #myCanvas{
     display: block;
-    height: 640px;
+    height: 690px;
 }
