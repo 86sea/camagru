@@ -8,9 +8,6 @@ if (isset($GLOBALS["HTTP_RAW_POST_DATA"])) {
     $fp = fopen('temp.png', 'wb');
     fwrite($fp, $unencodedData);
     fclose($fp);
-    $fp = fopen('test.txt', 'wb');
-    fwrite($fp, $filter);
-    fclose($fp);
 }
 //https://stackoverflow.com/questions/3876299/merging-two-images-with-php
     $dest = imagecreatefrompng("temp.png");

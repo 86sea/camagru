@@ -10,6 +10,5 @@
             <li id="logout"><button type="submit" name="submit" value="logout">Logout</button></li>
         </form>
 </ul>
-<br><br><br><br><br>
 
 

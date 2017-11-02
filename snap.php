@@ -7,6 +7,10 @@
 <body onload="init();">
 <?php include "header.php"; ?>
 <div class="clear"></div>
+<div class="content">
+    <div class="side">
+        <p>TEST</p>
+    </div>
     <div class="filter">
         <p>Select an image to superimpose:</p>
         <input onclick="chkd(1)" id="filter" name="filter" type="radio" value="1">Mr. Orange<br>
@@ -19,27 +23,23 @@
         <input onclick="chkd(8)" id="filter" name="filter" type="radio" value="8">Evil Incarnate<br>
         <input onclick="chkd(9)" id="filter" name="filter" type="radio" value="9">Computer<br>
     </div>
-    <h1>Take a snap</h1>
-    Click on the Start WebCam button.
-    <p>
-        <button onclick="startWebcam();">Start WebCam</button>
-        <button id="stop" onclick="stopWebcam();">Stop WebCam</button>
-        <button id="snap" onclick="snapshot();">Take Snapshot</button>
-    </p>
+    <div class="main">
 
-    <div id="previewdiv">
-    <video onclick="snapshot(this);" width=640 height=484 id="video" controls autoplay></video>
-        <img id="preview">
+        <h1>Take a snap</h1>
+        Click on the Start WebCam button.
+        <p>
+            <button onclick="startWebcam();">Start WebCam</button>
+            <button id="stop" onclick="stopWebcam();">Stop WebCam</button>
+            <button id="snap" onclick="snapshot();">Take Snapshot</button>
+        </p>
+        <div class="video">
+            <img id="preview">
+        <video onclick="snapshot(this);" width=640 height=484 id="video" controls autoplay></video>
+        </div>
+            <canvas  id="myCanvas" width="200" height="484"></canvas>
+        <?php include "footer.php"; ?>
     </div>
-    <p>
-
-        Screenshots : </p>
-        <canvas  id="myCanvas" width="640" height="484"></canvas>
-
-<div class="side">
-
 </div>
-<?php include "footer.php"; ?>
 </body>
 
 <script>
