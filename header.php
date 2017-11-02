@@ -1,4 +1,7 @@
-<?php include "config/database.php" ?>
+<?php
+    include "config/database.php";
+    session_start();
+    ?>
 <ul class ="nav">
     <li><a id="home" href="index.php">HOME</a></li>
         <form action="accounts.php" method="post">

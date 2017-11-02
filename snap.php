@@ -5,11 +5,26 @@
 
 </head>
 <body onload="init();">
-<?php include "header.php"; ?>
+<?php
+    include "header.php";
+    if ($_SESSION['upload'] != ""){
+        $chkd = $_SESSION['upload'];
+        echo "<script> snapshot($chkd)</script>";
+    }
+
+?>
+
 <div class="clear"></div>
 <div class="content">
     <div class="side">
-        <p>TEST</p>
+    <?php
+        $query = $db->prepare("SELECT * FROM gallery WHERE userID=? ORDER BY imgID DESC");
+        $query->execute(array($_SESSION['logged_on_usr']));
+        foreach ($query as $row){
+            $src = "gallery/".$row['URL'];
+            echo "<img id='thumb' height=100px width=100px src=$src>";
+        }
+    ?>
     </div>
     <div class="filter">
         <p>Select an image to superimpose:</p>
@@ -29,17 +44,36 @@
         Click on the Start WebCam button.
         <p>
             <button onclick="startWebcam();">Start WebCam</button>
+            <form action="upload.php" method="post" enctype="multipart/form-data">
+                Select image to upload:
+                <input type="file" name="fileToUpload" id="fileToUpload">
+                <input id="chkd" type="hidden" name="chkd" value="">
+                <script>
+                    var radios = document.getElementsByName("filter");
+                    for (var i = 0; i < radios.length; i++ ) {
+                        if ( radios[i].checked ) {
+                            var chkd = document.getElementById("chkd");
+
+                            chkd.value = i + 1;
+                        }
+                    }
+                </script>
+                <input type="submit" value="Upload Image" name="submit">
+            </form>
             <button id="stop" onclick="stopWebcam();">Stop WebCam</button>
+            <form action="snap.php" method="">
             <button id="snap" onclick="snapshot();">Take Snapshot</button>
+    </form>
         </p>
         <div class="video">
             <img id="preview">
         <video onclick="snapshot(this);" width=640 height=484 id="video" controls autoplay></video>
         </div>
-            <canvas  id="myCanvas" width="200" height="484"></canvas>
-        <?php include "footer.php"; ?>
+            <canvas  id="myCanvas" width="640" height="484"></canvas>
+
     </div>
 </div>
+<?php include "footer.php"; ?>
 </body>
 
 <script>
@@ -57,9 +91,11 @@
 
     document.getElementById("snap").disabled = true;
     document.getElementById("stop").disabled = true;
+    document.getElementById("chkd").disabled = true;
     function chkd(choice) {
         var vid = document.getElementById("video");
         if (vid.currentTime > 0 && document.getElementById("snap").disabled == true) {
+            document.getElementById("chkd").disabled = false;
             document.getElementById("snap").disabled = false;
         }
        // var img = document.createElement("img");
@@ -138,7 +174,6 @@
             var ajax = new XMLHttpRequest();
             var choice;
             var radios = document.getElementsByName("filter");
-
             for (var i = 0; i < radios.length; i++ ) {
                 if( radios[i].checked ) {
                     i++;
@@ -147,7 +182,7 @@
                     break ;
                 }
             }
-            ajax.open("POST", 'testsave.php', true);
+            ajax.open("POST", 'save.php', true);
             ajax.setRequestHeader('Content-Type', 'canvas/upload');
             ajax.send(canvasData);
         }

@@ -5,10 +5,9 @@
 }
 footer{
     position: absolute;
-    bottom: -300px;
-    margin-top: -18px;
-    left: -9px;
-    /* negative value of footer height */
+    bottom: -200px;
+    left: -1px;
+    margin-top: -18px;   /* negative value of footer height */
     height: 18px;
     width: 101vw;
     clear: both;
@@ -68,19 +67,22 @@ li button:hover {
 }
 
 #preview{
+    floar: clear;
     position: absolute;
     z-index: 3;
 }
 video{
+    float: clear;
     position: relative;
     z-index: 2;
 }
 .side {
-    display: block;
     position: relative;
     background-color: cornflowerblue;
+    overflow: scroll;
     right: -10px;
-    width: 20vw;
+    width: 10vw;
+    min-width: 200px;
     height: 70vh;
     z-index: 1;
     float: right;
@@ -101,7 +103,8 @@ video{
     position: relative;
     background-color: cornflowerblue;
     left: -8px;
-    width: 20vw;
+    width: 10vw;
+    min-width: 100px;
     height: 70vh;
     z-index: 1;
     float: left;
@@ -120,4 +123,9 @@ video{
 body{
     background-color: slategrey;
     font-family: sans-serif;
+}
+
+#thumb {
+    float: right;
+    padding: 5px;
 }

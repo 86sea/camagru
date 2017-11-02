@@ -14,7 +14,6 @@
             $login = $_POST['login'];
             $passwd = $_POST['passwd'];
             $hash = password_hash($passwd, PASSWORD_BCRYPT);
-            echo "test".$hash;
             $token = openssl_random_pseudo_bytes(16);
             $token = bin2hex($token);
             $query = $db->prepare("SELECT * FROM users WHERE username=?");

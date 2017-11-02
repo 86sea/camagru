@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Oct 24, 2017 at 10:37 PM
+-- Generation Time: Nov 02, 2017 at 03:27 AM
 -- Server version: 5.6.32
 -- PHP Version: 5.6.25
 
@@ -42,8 +42,20 @@ CREATE TABLE `admins` (
 CREATE TABLE `gallery` (
   `imgID` int(6) UNSIGNED NOT NULL,
   `URL` varchar(2083) NOT NULL,
-  `userID` int(6) UNSIGNED NOT NULL
+  `userID` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `gallery`
+--
+
+INSERT INTO `gallery` (`imgID`, `URL`, `userID`) VALUES
+(7, 'foo1509617647', 'foo'),
+(8, 'foo1509618076', 'foo'),
+(9, 'foo1509618080', 'foo'),
+(10, 'foo1509618081', 'foo'),
+(11, 'foo1509618083', 'foo'),
+(12, 'foo1509618089', 'foo');
 
 -- --------------------------------------------------------
 
@@ -66,7 +78,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`userID`, `username`, `passwd`, `email`, `token`, `valid`, `reset`) VALUES
-(12, 'foo', '$2y$10$9jIRpBVwK5N2qM8LpE9OduultpUjfjIIDABAHKloR1NLjgYIdOZ6K', 'seandayoungone@gmail.com', '2c712c1471362730e5f226a8d98b9815', 0, NULL);
+(13, 'foo', '$2y$10$fMPPNnlwAYK.f0GCdrr/X.y82D3aMZZ55k8U40rqDJrxB12hp7jU.', 'seandayoungone@gmail.com', '67b2abdc15a6d851a6af8cca585ddd55', 1, NULL);
 
 --
 -- Indexes for dumped tables
@@ -103,12 +115,12 @@ ALTER TABLE `admins`
 -- AUTO_INCREMENT for table `gallery`
 --
 ALTER TABLE `gallery`
-  MODIFY `imgID` int(6) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `imgID` int(6) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `userID` int(6) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `userID` int(6) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
