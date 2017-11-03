@@ -13,7 +13,7 @@
     //https://stackoverflow.com/questions/3876299/merging-two-images-with-php
         $time = time();
         session_start();
-        $name = $_SESSION['logged_on_usr'].$time;
+        $name = $_SESSION['logged_on_usr'].$time. ".png";
         $dest = imagecreatefrompng("temp.png");
         $src = imagecreatefrompng("stock/$filter.png");
         imagealphablending($dest, true);

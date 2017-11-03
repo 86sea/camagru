@@ -63,7 +63,7 @@ li button:hover {
 }
 
 #myCanvas{
-    display: none;
+ display: none;
 }
 
 #preview{
@@ -128,4 +128,8 @@ body{
 #thumb {
     float: right;
     padding: 5px;
+}
+
+#temp {
+ display: none;
 }

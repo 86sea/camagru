@@ -7,10 +7,7 @@
 <body onload="init();">
 <?php
     include "header.php";
-    if ($_SESSION['upload'] != ""){
-        $chkd = $_SESSION['upload'];
-        echo "<script> snapshot($chkd)</script>";
-    }
+
 
 ?>
 
@@ -46,31 +43,20 @@
             <button onclick="startWebcam();">Start WebCam</button>
             <form action="upload.php" method="post" enctype="multipart/form-data">
                 Select image to upload:
-                <input type="file" name="fileToUpload" id="fileToUpload">
-                <input id="chkd" type="hidden" name="chkd" value="">
-                <script>
-                    var radios = document.getElementsByName("filter");
-                    for (var i = 0; i < radios.length; i++ ) {
-                        if ( radios[i].checked ) {
-                            var chkd = document.getElementById("chkd");
-
-                            chkd.value = i + 1;
-                        }
-                    }
-                </script>
-                <input type="submit" value="Upload Image" name="submit">
+                <input onclick="getchoice()" type="file" name="fileToUpload" id="fileToUpload">
+            <button id="upload" type="submit" value="" name="submit">Submit</button>
             </form>
             <button id="stop" onclick="stopWebcam();">Stop WebCam</button>
             <form action="snap.php" method="">
-            <button id="snap" onclick="snapshot();">Take Snapshot</button>
+            <button id="snap" onclick="snapshot(0);">Take Snapshot</button>
     </form>
         </p>
         <div class="video">
             <img id="preview">
-        <video onclick="snapshot(this);" width=640 height=484 id="video" controls autoplay></video>
+        <video width=640 height=484 id="video" controls autoplay></video>
         </div>
             <canvas  id="myCanvas" width="640" height="484"></canvas>
-
+            <img id="temp" src="temp2.png" width="640" height="484">
     </div>
 </div>
 <?php include "footer.php"; ?>
@@ -83,7 +69,7 @@
     //--------------------
     navigator.getUserMedia = ( navigator.getUserMedia ||
         navigator.webkitGetUserMedia ||
-        navigator.mozGetUserMedia ||
+        navigator.mediaDevices.getUserMedia ||
         navigator.msGetUserMedia);
 
     var video;
@@ -91,30 +77,21 @@
 
     document.getElementById("snap").disabled = true;
     document.getElementById("stop").disabled = true;
-    document.getElementById("chkd").disabled = true;
+    document.getElementById("upload").disabled = true;
+    document.getElementById("fileToUpload").disabled = true;
     function chkd(choice) {
         var vid = document.getElementById("video");
         if (vid.currentTime > 0 && document.getElementById("snap").disabled == true) {
-            document.getElementById("chkd").disabled = false;
+
             document.getElementById("snap").disabled = false;
         }
-       // var img = document.createElement("img");
-        //var elem = document.getElementById('preview');
-        //if (elem != null) {
-         //   elem.parentNode.removeChild(elem);
-        //}
+        document.getElementById("fileToUpload").disabled = false;
         var src = "stock/";
         src =  src.concat(choice.toString());
         src = src.concat(".png");
         var img = document.getElementById("preview")
         img.src = src;
-       // img.width = 640;
-       // img.height = 384;
         img.alt = "filter";
-        //img.id = "preview";
-
-        // This next line will just add it to the <body> tag
-       // document.getElementById("previewdiv").appendChild(img);
     }
     function startWebcam() {
         var radios = document.getElementsByName("filter");
@@ -124,28 +101,16 @@
             }
         }
         document.getElementById("stop").disabled = false;
-        if (navigator.getUserMedia) {
-            navigator.getUserMedia (
-                // constraints
-                {
-                    video: true,
-                    audio: false
-                },
-                // successCallback
-                function(localMediaStream) {
-                    video = document.querySelector('video');
-                    video.src = window.URL.createObjectURL(localMediaStream);
-                    webcamStream = localMediaStream;
-                },
-                // errorCallback
-                function(err) {
-                    //console.log("The following error occurred: " + err);
-                }
-            );
-        } else {
-           // console.log("getUserMedia not supported");
+        navigator.mediaDevices.getUserMedia({ audio: false, video: true })
+            .then(function(stream) {
+                video = document.querySelector('video');
+                video.srcObject = stream;
+                webcamStream = stream;
+            })
+            .catch(function(err) {
+                console.log("The following error occured: " + err);
+            });
         }
-    }
     function stopWebcam() {
         var vid = document.getElementById("video");
         if (vid.currentTime > 0) {
@@ -166,27 +131,67 @@
     }
     //https://gist.github.com/peterschmidler/2410299
     //https://permadi.com/2010/10/html5-saving-canvas-image-data-using-php-and-ajax/
-    function snapshot() {
-        var vid = document.getElementById("video");
+    function snapshot(x) {
+        var foo;
+        var canvasData;
+        var ajax;
+        var choice;
+        var radios;
+        var vid;
+        var temp;
+        var canvas2;
+        var ctx2;
+
+        foo = parseInt(x);
+        ajax = new XMLHttpRequest();
+        vid = document.getElementById("video");
         if (vid.currentTime > 0) {
+            radios = document.getElementsByName("filter");
             ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-            var canvasData = canvas.toDataURL("image/png");
-            var ajax = new XMLHttpRequest();
-            var choice;
-            var radios = document.getElementsByName("filter");
+            canvasData = canvas.toDataURL("image/png");
             for (var i = 0; i < radios.length; i++ ) {
                 if( radios[i].checked ) {
                     i++;
                     choice = i.toString();
                     canvasData = canvasData.concat(choice);
-                    break ;
+                    break;
                 }
             }
-            ajax.open("POST", 'save.php', true);
-            ajax.setRequestHeader('Content-Type', 'canvas/upload');
-            ajax.send(canvasData);
+        }
+       else if (foo > 0){
+            temp = document.getElementById("temp");
+          //  temp.src = "temp2.png";
+            canvas2 = document.getElementById("myCanvas");
+            ctx2 = canvas2.getContext('2d');
+            choice = foo.toString();
+            ctx2.drawImage(temp, 0, 0, canvas2.width, canvas2.height);
+            canvasData = canvas2.toDataURL("image/png");
+            canvasData = canvasData.concat(choice);
+        }
+        ajax.open("POST", 'save.php', true);
+       ajax.setRequestHeader('Content-Type', 'canvas/upload');
+        ajax.send(canvasData);
+    }
+
+    function getchoice(){
+        var radios = document.getElementsByName("filter");
+
+        document.getElementById("upload").disabled = false;
+        for (var i = 0; i < radios.length; i++ ) {
+            if ( radios[i].checked ) {
+                var radio = document.getElementById("upload");
+                radio.value = i + 1;
+            }
         }
     }
 
 </script>
+<?php
+    if ($_SESSION['upload'] != ""){
+    $chkd = $_SESSION['upload'];
+    $_SESSION['upload'] = "";
+    $chkd = (string)$chkd;
+    echo "<script> snapshot($chkd)</script>";
+}
+?>
 </html>
