@@ -19,7 +19,13 @@
         $query->execute(array($_SESSION['logged_on_usr']));
         foreach ($query as $row){
             $src = "gallery/".$row['URL'];
-            echo "<img id='thumb' height=100px width=100px src=$src>";
+            $imgID = $row['imgID'];
+            echo "<form action='delete.php' method='POST'>
+                    <input type='hidden' name='src' value=$src>
+                    <button type='submit' name='imgID' value=$imgID>
+                        <img id='thumb' name=$imgID height=100px width=100px src=$src>
+                    </button>
+            </form>";
         }
     ?>
     </div>
@@ -44,7 +50,7 @@
             <form action="upload.php" method="post" enctype="multipart/form-data">
                 Select image to upload:
                 <input onclick="getchoice()" type="file" name="fileToUpload" id="fileToUpload">
-            <button id="upload" type="submit" value="" name="submit">Submit</button>
+            <button id="upload" type="submit" value="" name="submit">Upload</button>
             </form>
             <button id="stop" onclick="stopWebcam();">Stop WebCam</button>
             <form action="snap.php" method="">
@@ -183,6 +189,16 @@
                 radio.value = i + 1;
             }
         }
+    }
+
+    function rmImg(imgID){
+        console.log(imgID);
+        var ajax2;
+
+        ajax2 = new XMLHttpRequest();
+        ajax2.open("POST", 'delete.php', true);
+        ajax2.setRequestHeader('Content-Type', 'text/plain');
+        ajax2.send(imgID);
     }
 
 </script>

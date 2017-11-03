@@ -27,3 +27,4 @@
         $query = $db->prepare("INSERT INTO gallery(URL, userID)	VALUES(?, ?)");
         $query->execute(array($name, $_SESSION['logged_on_usr']));
         // https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/send
+header("Location: snap.php", true, 301);
