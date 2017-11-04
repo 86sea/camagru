@@ -13,7 +13,7 @@
         $query->execute(array($login, $email));
         $row_count = $query->rowCount();
         if ($row_count != 1) {
-            echo "Account Not found!";
+            echo "<br><br><br><br>Account Not found!";
         }
         else {
             $token = openssl_random_pseudo_bytes(16);
@@ -22,7 +22,7 @@
             $query->execute(array($token, $login));
             $reset = "Click this link to reset your password: http://localhost:8080/camagru/reset2.php?reset=$login&token=$token";
             mail("$email", "CAMAGRU ACCOUNT RESET PASSWORD", "$reset");
-            echo "An email was sent with a link to reset your password";
+            echo "<br><br><br><br>An email was sent with a link to reset your password";
             };
     }
     ?>

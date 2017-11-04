@@ -1,7 +1,6 @@
 <?php
     include "config/database.php";
-    if (isset($GLOBALS["HTTP_RAW_POST_DATA"])) {
-        $imageData = $GLOBALS['HTTP_RAW_POST_DATA'];
+        $imageData = file_get_contents("php://input");
         $filter = substr($imageData, -1);
         $filterData = substr($imageData, 0, -1);
         $filteredData = substr($imageData, strpos($imageData, ",") + 1);
@@ -9,7 +8,6 @@
         $fp = fopen('temp.png', 'wb');
         fwrite($fp, $unencodedData);
         fclose($fp);
-    }
     //https://stackoverflow.com/questions/3876299/merging-two-images-with-php
         $time = time();
         session_start();
@@ -27,4 +25,4 @@
         $query = $db->prepare("INSERT INTO gallery(URL, userID)	VALUES(?, ?)");
         $query->execute(array($name, $_SESSION['logged_on_usr']));
         // https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/send
-header("Location: snap.php", true, 301);
+        header("Location: snap.php", true, 301);

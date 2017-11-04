@@ -3,6 +3,9 @@
     right: 50px;
     width: 50px;
 }
+.login{
+    position: relative;
+}
 footer{
     position: absolute;
     bottom: -200px;
@@ -67,12 +70,10 @@ li button:hover {
 }
 
 #preview{
-    floar: clear;
     position: absolute;
     z-index: 3;
 }
 video{
-    float: clear;
     position: relative;
     z-index: 2;
 }
@@ -132,4 +133,16 @@ body{
 
 #temp {
  display: none;
+}
+
+#pageNav{
+
+}
+
+#comment {
+    padding-bottom: 20px;
+}
+
+#galleryFooter{
+    position: relative;
 }

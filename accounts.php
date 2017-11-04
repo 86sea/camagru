@@ -8,7 +8,7 @@
         {
             $email = $_POST['email'];
             if (strlen($_POST['login']) < 1 || strlen($_POST['passwd']) < 0 || filter_var($email, FILTER_VALIDATE_EMAIL) == FALSE){
-                echo "USER NAME NEEDS TO BE BIGGER THAN 1 CHARACTER AND PASSWORD NEEDS TO CONTAIN AT LEAST 8 CHARACTERS AND EMAIL NEEDS TO BE VALID";
+                echo "<br><br><br><br>USER NAME NEEDS TO BE BIGGER THAN 1 CHARACTER AND PASSWORD NEEDS TO CONTAIN AT LEAST 8 CHARACTERS AND EMAIL NEEDS TO BE VALID";
                 return (false);
             }
             $login = $_POST['login'];
@@ -20,7 +20,7 @@
             $query->execute(array($login));
             $row_count = $query->rowCount();
             if ($row_count != 0) {
-                echo "ACCOUNT ALREADY EXISTS";
+                echo "<br><br><br><br>ACCOUNT ALREADY EXISTS";
                 return (false);
             }
             else {
@@ -33,7 +33,7 @@
         }
     function login($db){
             if (strlen($_POST['login']) < 1 || strlen($_POST['passwd']) < 0){
-                echo "USER NAME NEEDS TO BE BIGGER THAN 1 CHARACTER PASSWORD NEEDS TO CONTAIN AT LEAST 8 CHARACTERS";
+                echo "<br><br><br><br>USER NAME NEEDS TO BE BIGGER THAN 1 CHARACTER PASSWORD NEEDS TO CONTAIN AT LEAST 8 CHARACTERS";
                 return (false);
             }
             $login = $_POST['login'];
@@ -43,17 +43,17 @@
             $row_count = $query->rowCount();
             if ($row_count != 1)
             {
-                echo "ACCOUNT DOES NOT EXIST";
+                echo "<br><br><br><br>ACCOUNT DOES NOT EXIST";
                 return (false);
             }
             else {
                 $row = $query->fetchAll(PDO::FETCH_ASSOC);
                 if (password_verify($passwd , $row[0]['passwd']) != TRUE) {
-                    echo "WRONG PASSWORD";
+                    echo "<br><br><br><br>WRONG PASSWORD";
                     return false;
                 }
                 if ($row[0]['valid'] != 1){
-                    echo "ACCOUNT HAS NOT BEEN VALIDATED, CHECK YOUR EMAIL";
+                    echo "<br><br><br><br>ACCOUNT HAS NOT BEEN VALIDATED, CHECK YOUR EMAIL";
                     return false;
                 }
                 else {
@@ -97,9 +97,10 @@
             // TODO include_once "login_admin.php";
             break;
     }
-    if ($_GET['action'] == "login")
+    if (isset($_GET['action']) && $_GET['action'] == "login")
         include_once "login.php";
 
 ?>
+<?php include_once "footer.php";?>
 </body>
 </html>

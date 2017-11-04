@@ -2,12 +2,13 @@
 <html>
 <head>
     <link rel="stylesheet" type="text/css" href="style/style.css">
-
+    <title>CAMAGRU</title>
 </head>
 <body onload="init();">
 <?php
     include "header.php";
-
+if ($_SESSION['logged_on_usr'] == "")
+    header("Location: index.php", true, 301);
 
 ?>
 

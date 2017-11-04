@@ -2,7 +2,6 @@
     $target_dir = "";
     $target_file = "temp2.png";
     $uploadOk = 1;
-    print_r($_POST);
     $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
     // Check if image file is a actual image or fake image
     if(isset($_POST["submit"])) {
