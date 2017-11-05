@@ -14,5 +14,5 @@ include "config/database.php";
             $email = $query->fetch(PDO::FETCH_ASSOC);
 
     $email = $email['email'];
-    mail("$email", "CAMAGRU COMMENT", "$user posted $comment on one of your pics!");
+    mail("$email", "CAMAGRU COMMENT", "$comment on one of your pics!");
     header('Location: index.php', true, 301);

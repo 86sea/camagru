@@ -85,6 +85,8 @@
             if (create($db) != "true"){
                 include "create.php";
             }
+            else
+                header('Location: index.php', true, 301);
             break;
         case "_login":
             if (login($db) != "true"){

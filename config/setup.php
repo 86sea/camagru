@@ -1,7 +1,13 @@
 <?php
-    include "database.php";
+    $DB_DSN = 'mysql:host=localhost;charset=utf8';
+    $DB_USER = 'root';
+    $DB_PASSWORD = 'foo';
+    $db = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD, array(PDO::ATTR_PERSISTENT => true, PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
     $db->query("CREATE DATABASE IF NOT EXISTS camagru");
-
+    $DB_DSN = 'mysql:host=localhost;dbname=camagru;charset=utf8';
+    $DB_USER = 'root';
+    $DB_PASSWORD = 'foo';
+    $db = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD, array(PDO::ATTR_PERSISTENT => true, PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
     $db->query("CREATE TABLE `users` (
           `userID` int(6) UNSIGNED NOT NULL,
           `username` varchar(30) NOT NULL,
@@ -35,3 +41,12 @@
 
     $db->query("ALTER TABLE `users`
           ADD PRIMARY KEY (`userID`);");
+
+    $db->query("ALTER TABLE `comments`
+              MODIFY COLUMN commentID INT auto_increment");
+
+    $db->query("ALTER TABLE `gallery`
+              MODIFY COLUMN imgID INT auto_increment");
+
+    $db->query("ALTER TABLE `users`
+              MODIFY COLUMN userID INT auto_increment");
