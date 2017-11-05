@@ -3,17 +3,30 @@
     right: 50px;
     width: 50px;
 }
+.login{
+    position: relative;
+}
 footer{
-    position:absolute;
-    bottom:20px;
+    position: absolute;
+    bottom: -200px;
+    left: -1px;
+    margin-top: -18px;   /* negative value of footer height */
+    height: 18px;
+    width: 101vw;
+    clear: both;
+    background-color: steelblue;
 }
 
+.clear{
+    clear: both;
+}
 .nav{
     position: absolute;
     top: 0px;
-    display: inline-block;
-    width: 1000%;
-    height:5%;
+    left: 0px;
+   display: inline-block;
+    width: 100vw;
+    height: 40px;
     background-color: #333;
 }
 
@@ -50,4 +63,86 @@ li button:hover {
     padding: 14px 16px;
     text-decoration: none;
     background-color: #333333;
+}
+
+#myCanvas{
+ display: none;
+}
+
+#preview{
+    position: absolute;
+    z-index: 3;
+}
+video{
+    position: relative;
+    z-index: 2;
+}
+.side {
+    position: relative;
+    background-color: cornflowerblue;
+    overflow: scroll;
+    right: -10px;
+    width: 10vw;
+    min-width: 200px;
+    height: 70vh;
+    z-index: 1;
+    float: right;
+    padding: 0px;
+}
+
+.main {
+    position: relative;
+
+    width: 80vw;
+    min-width: 684px;
+    background-color: slategrey;
+    z-index: 0;
+}
+
+.filter {
+    display: block;
+    position: relative;
+    background-color: cornflowerblue;
+    left: -8px;
+    width: 10vw;
+    min-width: 100px;
+    height: 70vh;
+    z-index: 1;
+    float: left;
+    padding: 0px;
+    text-align: left;
+}
+
+.content {
+    position: relative;
+    top: 19px;
+    padding-bottom: 10px;
+    background-color:slategrey;
+    text-align: center;
+}
+
+body{
+    background-color: slategrey;
+    font-family: sans-serif;
+}
+
+#thumb {
+    float: right;
+    padding: 5px;
+}
+
+#temp {
+ display: none;
+}
+
+#pageNav{
+
+}
+
+#comment {
+    padding-bottom: 20px;
+}
+
+#galleryFooter{
+    position: relative;
 }
